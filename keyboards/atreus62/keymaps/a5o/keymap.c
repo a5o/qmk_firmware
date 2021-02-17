@@ -3,13 +3,15 @@
 #define _BASE 0
 #define _LOWER 1
 #define _RAISE 2
-#define _FUN 3
-#define _DIR 4
-#define _ADJUST 5
+#define _NUMPAD 3
+#define _FUN 4
+#define _DIR 5
+#define _ADJUST 6
 
 enum custom_keycodes {
-  LOWER=SAFE_RANGE,
-  RAISE,
+	LOWER=SAFE_RANGE,
+	RAISE,
+	NUMPAD,
 	TMUXL,
 	TMUXK,
 	TMUXJ,
@@ -18,16 +20,16 @@ enum custom_keycodes {
 };
 
 enum unicode_names {
-    EACU,
+		EACU,
 		EGRV,
 		AGRV,
 		UGRV,
 		IGRV,
 		OGRV,
-  	LTEQ,
- 	 	GTEQ,
-  	NOTEQ,
-  	PLMIN,
+		LTEQ,
+		GTEQ,
+		NOTEQ,
+		PLMIN,
 		ALM,
 		MICRO,
 		COPY,
@@ -39,18 +41,18 @@ enum unicode_names {
 };
 
 const uint32_t PROGMEM unicode_map[] = {
-  [EACU] = 0x00E9,
+	[EACU] = 0x00E9,
 	[EGRV] = 0x00E8,
 	[AGRV] = 0x00E0,
 	[UGRV] = 0x00F9,
 	[IGRV] = 0x00EC,
 	[OGRV] = 0x00F2,
 
-  // math
-  [LTEQ] = 0x2264, // less than or equal
-  [GTEQ] = 0x2265, // greater than or equal
-  [NOTEQ] = 0x2260, // not equal
-  [PLMIN] = 0x00B1, // plus minus
+	// math
+	[LTEQ] = 0x2264, // less than or equal
+	[GTEQ] = 0x2265, // greater than or equal
+	[NOTEQ] = 0x2260, // not equal
+	[PLMIN] = 0x00B1, // plus minus
 	[ALM] = 0x2248, // almost
 
 	// misc symbols
@@ -89,18 +91,25 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
+	[_NUMPAD] = LAYOUT(
+	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSLS, KC_PAST, KC_PMNS, KC_NO, 
+	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_PPLS, KC_NO, 
+	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO,
+	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_P0, KC_P1, KC_P2, KC_P3, KC_PDOT, KC_PENT, 
+	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
+	),
+
 	[_FUN] = LAYOUT(
 	KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, 
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_F12, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_TRNS, KC_NO, CAPTURE, KC_NO, KC_NO, KC_NO, TMUXH, TMUXJ, TMUXK, TMUXL, KC_NO, KC_NO, 
-	KC_TRNS, KC_BRID, KC_BRIU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+	KC_TRNS, KC_BRID, KC_BRIU, KC_NO, KC_NO, KC_NO, NUMPAD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 	),
 
 	[_DIR] = LAYOUT(
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_HOME, KC_INS, KC_END, KC_PGUP, KC_NO, 
-
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT, KC_NO, KC_NO,
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PGDN, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
@@ -118,6 +127,14 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
+		case NUMPAD:
+			if (record->event.pressed) {
+				layer_invert(_NUMPAD);
+				register_code(KC_NLCK);
+				unregister_code(KC_NLCK);
+		}
+		return false;
+		break;
 		case LOWER:
 			if (record->event.pressed) {
 				layer_on(_LOWER);
@@ -140,31 +157,31 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break; 
 		case TMUXH:
 			if (record->event.pressed) {
-      SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("a"));
 			SEND_STRING("h");
 			}
 			break; 
 		case TMUXJ:
 			if (record->event.pressed) {
-      SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("a"));
 			SEND_STRING("j");
 			}
 			break; 
 		case TMUXK:
 			if (record->event.pressed) {
-      SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("a"));
 			SEND_STRING("k");
 			}
 			break; 
 		case TMUXL:
 			if (record->event.pressed) {
-      SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("a"));
 			SEND_STRING("l");
 			}
 			break; 
 		case CAPTURE:
 			if (record->event.pressed) {
-      SEND_STRING(SS_LSFT(SS_LGUI("5")));
+			SEND_STRING(SS_LSFT(SS_LGUI("5")));
 			}
 			break; 
 	}
