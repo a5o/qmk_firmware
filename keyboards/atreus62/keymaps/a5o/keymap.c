@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap_steno.h"
 
 #define _BASE 0
 #define _LOWER 1
@@ -6,7 +7,8 @@
 #define _NUMPAD 3
 #define _FUN 4
 #define _DIR 5
-#define _ADJUST 6
+#define _PLOVER 6
+#define _ADJUST 7
 
 enum custom_keycodes {
 	LOWER=SAFE_RANGE,
@@ -15,7 +17,9 @@ enum custom_keycodes {
 	TMUXL,
 	TMUXK,
 	TMUXJ,
-	TMUXH
+	TMUXH,
+	PLOVER,
+  EXT_PLV
 };
 
 enum unicode_names {
@@ -64,6 +68,9 @@ const uint32_t PROGMEM unicode_map[] = {
 	[EUR] = 0x20AC
 
 };
+
+#define ST_BOLT QK_STENO_BOLT
+#define ST_GEM  QK_STENO_GEMINI
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_BASE] = LAYOUT(
@@ -114,9 +121,17 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 	),
 
+	[_PLOVER] = LAYOUT(
+	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+  STN_N1,  STN_N2,  STN_N3,  STN_N4,  STN_N5,  STN_N6,  STN_N7,  STN_N8,  STN_N9,  STN_NA,  STN_NB,  STN_NC ,
+  STN_FN,  STN_S1,  STN_TL,  STN_PL,  STN_HL,  STN_ST1, STN_ST3, STN_FR,  STN_PR,  STN_LR,  STN_TR,  STN_DR ,
+  KC_NO, STN_S2,  STN_KL,  STN_WL,  STN_RL,  STN_ST2, STN_ST4, STN_RR,  STN_BR,  STN_GR,  STN_SR,  STN_ZR ,
+  EXT_PLV, KC_NO, KC_NO, STN_A,   STN_O,  KC_NO, KC_NO, KC_NO, KC_NO, STN_E,   STN_U,   STN_PWR, STN_RE1, STN_RE2
+	),
+
 	[_ADJUST] = LAYOUT(
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
-	KC_NO, RESET, EEP_RST, DEBUG, KC_NO, KC_NO, AG_SWAP, AG_NORM, KC_NO, KC_NO, KC_NO, KC_NO, 
+	KC_NO, RESET, EEP_RST, DEBUG, KC_NO, KC_NO, AG_SWAP, AG_NORM, PLOVER, ST_BOLT, ST_GEM, KC_NO, 
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, UC_M_LN, KC_NO, KC_NO, 
 	KC_NO, KC_NO, KC_NO, UC_M_WC, KC_NO, KC_NO, KC_NO, UC_M_MA, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
@@ -178,6 +193,18 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			SEND_STRING("l");
 			}
 			break; 
+    case PLOVER:
+      if (!record->event.pressed) {
+        layer_on(_PLOVER);
+      }
+      return false;
+      break;
+    case EXT_PLV:
+      if (record->event.pressed) {
+        layer_off(_PLOVER);
+      }
+      return false;
+      break;
 	}
 	return true;
 }
