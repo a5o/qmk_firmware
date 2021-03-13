@@ -65,6 +65,23 @@ const uint32_t PROGMEM unicode_map[] = {
 
 };
 
+enum combo_events {
+	LRPRN,
+	LRBRC,
+	LRCBR
+};
+	
+const uint16_t PROGMEM prn_combo[] = {KC_LPRN, KC_RPRN, COMBO_END};
+const uint16_t PROGMEM brc_combo[] = {KC_LBRC, KC_RBRC, COMBO_END};
+const uint16_t PROGMEM cbr_combo[] = {KC_LCBR, KC_RCBR, COMBO_END};
+
+combo_t key_combos[COMBO_COUNT] = {
+	[LRPRN] = COMBO_ACTION(prn_combo),
+  [LRBRC] = COMBO_ACTION(brc_combo),
+	[LRCBR] = COMBO_ACTION(cbr_combo)
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_BASE] = LAYOUT(
 	KC_GRV, KC_1, KC_2, KC_3, KC_4, KC_5, KC_6, KC_7, KC_8, KC_9, KC_0, KC_EQL, 
@@ -180,4 +197,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break; 
 	}
 	return true;
+}
+
+
+void process_combo_event(uint16_t combo_index, bool pressed) {
+  switch(combo_index) {
+    case LRPRN:
+      if (pressed) {
+				SEND_STRING("()" SS_TAP(X_LEFT));
+      }
+      break;
+    case LRBRC:
+      if (pressed) {
+				SEND_STRING("[]" SS_TAP(X_LEFT));
+      }
+      break;
+    case LRCBR:
+      if (pressed) {
+				SEND_STRING("{}" SS_TAP(X_LEFT));
+      }
+      break;
+  }
 }
