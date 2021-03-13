@@ -68,17 +68,23 @@ const uint32_t PROGMEM unicode_map[] = {
 enum combo_events {
 	LRPRN,
 	LRBRC,
-	LRCBR
+	LRCBR,
+	LRQUOT,
+	LRDQUOT
 };
 	
 const uint16_t PROGMEM prn_combo[] = {KC_LPRN, KC_RPRN, COMBO_END};
 const uint16_t PROGMEM brc_combo[] = {KC_LBRC, KC_RBRC, COMBO_END};
 const uint16_t PROGMEM cbr_combo[] = {KC_LCBR, KC_RCBR, COMBO_END};
+const uint16_t PROGMEM quot_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
+const uint16_t PROGMEM dquot_combo[] = {KC_RCBR, KC_DQUO, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 	[LRPRN] = COMBO_ACTION(prn_combo),
   [LRBRC] = COMBO_ACTION(brc_combo),
-	[LRCBR] = COMBO_ACTION(cbr_combo)
+	[LRCBR] = COMBO_ACTION(cbr_combo),
+	[LRQUOT] = COMBO_ACTION(quot_combo),
+	[LRDQUOT] = COMBO_ACTION(dquot_combo)
 };
 
 
@@ -112,7 +118,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_NO, 
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_P1, KC_P2, KC_P3, KC_PENT, KC_TRNS, 
-	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_PENT, KC_NO
+	NUMPAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_PENT, KC_NO
 	),
 
 	[_FUN] = LAYOUT(
@@ -215,6 +221,16 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
     case LRCBR:
       if (pressed) {
 				SEND_STRING("{}" SS_TAP(X_LEFT));
+      }
+      break;
+    case LRQUOT:
+      if (pressed) {
+				SEND_STRING("''" SS_TAP(X_LEFT));
+      }
+      break;
+    case LRDQUOT:
+      if (pressed) {
+				SEND_STRING("\"\"" SS_TAP(X_LEFT));
       }
       break;
   }
