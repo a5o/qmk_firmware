@@ -70,7 +70,8 @@ enum combo_events {
 	LRBRC,
 	LRCBR,
 	LRQUOT,
-	LRDQUOT
+	LRDQUOT,
+	JK_ESC
 };
 	
 const uint16_t PROGMEM prn_combo[] = {KC_LPRN, KC_RPRN, COMBO_END};
@@ -78,13 +79,15 @@ const uint16_t PROGMEM brc_combo[] = {KC_LBRC, KC_RBRC, COMBO_END};
 const uint16_t PROGMEM cbr_combo[] = {KC_LCBR, KC_RCBR, COMBO_END};
 const uint16_t PROGMEM quot_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM dquot_combo[] = {KC_RCBR, KC_DQUO, COMBO_END};
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 	[LRPRN] = COMBO_ACTION(prn_combo),
   [LRBRC] = COMBO_ACTION(brc_combo),
 	[LRCBR] = COMBO_ACTION(cbr_combo),
 	[LRQUOT] = COMBO_ACTION(quot_combo),
-	[LRDQUOT] = COMBO_ACTION(dquot_combo)
+	[LRDQUOT] = COMBO_ACTION(dquot_combo),
+	[JK_ESC] = COMBO(jk_combo, KC_ESC)
 };
 
 
