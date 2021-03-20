@@ -71,7 +71,8 @@ enum combo_events {
 	LRCBR,
 	LRQUOT,
 	LRDQUOT,
-	JK_ESC
+	JK_ESC,
+	NM_NUM
 };
 	
 const uint16_t PROGMEM prn_combo[] = {KC_LPRN, KC_RPRN, COMBO_END};
@@ -80,6 +81,7 @@ const uint16_t PROGMEM cbr_combo[] = {KC_LCBR, KC_RCBR, COMBO_END};
 const uint16_t PROGMEM quot_combo[] = {KC_SCLN, KC_QUOT, COMBO_END};
 const uint16_t PROGMEM dquot_combo[] = {KC_RCBR, KC_DQUO, COMBO_END};
 const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
+const uint16_t PROGMEM nm_combo[] = {KC_N, KC_M, COMBO_END};
 
 combo_t key_combos[COMBO_COUNT] = {
 	[LRPRN] = COMBO_ACTION(prn_combo),
@@ -87,7 +89,8 @@ combo_t key_combos[COMBO_COUNT] = {
 	[LRCBR] = COMBO_ACTION(cbr_combo),
 	[LRQUOT] = COMBO_ACTION(quot_combo),
 	[LRDQUOT] = COMBO_ACTION(dquot_combo),
-	[JK_ESC] = COMBO(jk_combo, KC_ESC)
+	[JK_ESC] = COMBO(jk_combo, KC_ESC),
+	[NM_NUM] = COMBO_ACTION(nm_combo)
 };
 
 
@@ -128,7 +131,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, 
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_F12, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, TMUXH, TMUXJ, TMUXK, TMUXL, KC_NO, KC_NO, 
-	KC_TRNS, KC_BRID, KC_BRIU, KC_NO, KC_NO, KC_NO, NUMPAD, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+	KC_TRNS, KC_BRID, KC_BRIU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_MNXT
 	),
 
@@ -236,5 +239,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 				SEND_STRING("\"\"" SS_TAP(X_LEFT));
       }
       break;
+		case NM_NUM:
+			if (pressed){
+				layer_invert(_NUMPAD);
+				register_code(KC_NLCK);
+				unregister_code(KC_NLCK);
+		}
   }
 }

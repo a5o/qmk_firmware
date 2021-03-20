@@ -1,4 +1,5 @@
 #define ONESHOT_TAP_TOGGLE 2
 #define TAPPING_TERM 250
 #define PERMISSIVE_HOLD
-#define COMBO_COUNT 6
+#define COMBO_COUNT 7
+#define COMBO_TERM 100
