@@ -185,25 +185,25 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			break; 
 		case TMUXH:
 			if (record->event.pressed) {
-			SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("b"));
 			SEND_STRING("h");
 			}
 			break; 
 		case TMUXJ:
 			if (record->event.pressed) {
-			SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("b"));
 			SEND_STRING("j");
 			}
 			break; 
 		case TMUXK:
 			if (record->event.pressed) {
-			SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("b"));
 			SEND_STRING("k");
 			}
 			break; 
 		case TMUXL:
 			if (record->event.pressed) {
-			SEND_STRING(SS_LCTL("a"));
+			SEND_STRING(SS_LCTL("b"));
 			SEND_STRING("l");
 			}
 			break; 
