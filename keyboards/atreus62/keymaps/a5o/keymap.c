@@ -262,7 +262,7 @@ void matrix_scan_user(void) {
 			tap_code16(MEH(KC_L));
     }
     SEQ_TWO_KEYS(KC_B, KC_R) {
-			tap_code16(MEH(KC_B));
+			tap_code16(MEH(KC_O));
     }
     SEQ_TWO_KEYS(KC_C, KC_H) {
 			tap_code16(MEH(KC_C));
