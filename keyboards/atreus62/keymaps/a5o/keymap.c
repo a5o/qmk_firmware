@@ -256,19 +256,19 @@ void matrix_scan_user(void) {
     leader_end();
 
     SEQ_TWO_KEYS(KC_T, KC_R) {
-			tap_code16(HYPR(KC_T));
+			tap_code16(MEH(KC_T));
     }
     SEQ_TWO_KEYS(KC_C, KC_L) {
-			tap_code16(HYPR(KC_L));
+			tap_code16(MEH(KC_L));
     }
     SEQ_TWO_KEYS(KC_B, KC_R) {
-			tap_code16(HYPR(KC_B));
+			tap_code16(MEH(KC_B));
     }
     SEQ_TWO_KEYS(KC_C, KC_H) {
-			tap_code16(HYPR(KC_C));
+			tap_code16(MEH(KC_C));
     }
     SEQ_TWO_KEYS(KC_V, KC_I) {
-			tap_code16(HYPR(KC_V));
+			tap_code16(MEH(KC_V));
     }
   }
 }
