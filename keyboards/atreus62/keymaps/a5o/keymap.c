@@ -71,8 +71,8 @@ enum combo_events {
 	LRCBR,
 	LRQUOT,
 	LRDQUOT,
-	JK_ESC,
-	NM_NUM
+	JK_ESC//,
+	//NM_NUM
 };
 	
 const uint16_t PROGMEM prn_combo[] = {KC_LPRN, KC_RPRN, COMBO_END};
@@ -89,8 +89,8 @@ combo_t key_combos[COMBO_COUNT] = {
 	[LRCBR] = COMBO_ACTION(cbr_combo),
 	[LRQUOT] = COMBO_ACTION(quot_combo),
 	[LRDQUOT] = COMBO_ACTION(dquot_combo),
-	[JK_ESC] = COMBO(jk_combo, KC_ESC),
-	[NM_NUM] = COMBO_ACTION(nm_combo)
+	[JK_ESC] = COMBO(jk_combo, KC_ESC)//,
+	//[NM_NUM] = COMBO_ACTION(nm_combo)
 };
 
 
@@ -100,7 +100,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TAB, KC_Q, KC_W, KC_E, KC_R, KC_T, KC_Y, KC_U, KC_I, KC_O, KC_P, KC_MINS, 
 	LCTL_T(KC_ESC), KC_A, KC_S, KC_D, KC_F, KC_G, KC_H, KC_J, KC_K, KC_L, KC_SCLN, KC_QUOT, 
 	OSM(MOD_LSFT), KC_Z, KC_X, KC_C, KC_V, KC_B, KC_N, KC_M, KC_COMM, KC_DOT, KC_SLSH, RSFT_T(KC_ENT), 
-	KC_LEAD, MO(_FUN), KC_LGUI, KC_LALT, RAISE, LT(_DIR,KC_SPC), KC_BSPC, RCTL_T(KC_ENT), KC_SPC, LOWER, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
+	KC_MEH, MO(_FUN), KC_LGUI, KC_LALT, RAISE, LT(_DIR,KC_SPC), KC_BSPC, RCTL_T(KC_ENT), KC_SPC, LOWER, KC_LEFT, KC_DOWN, KC_UP, KC_RIGHT
 	),
 
 	[_LOWER] = LAYOUT(
@@ -119,13 +119,13 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
-	[_NUMPAD] = LAYOUT(
-	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSLS, KC_PAST, KC_BSPC, KC_NO, 
-	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_NO, 
-	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO,
-	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_P1, KC_P2, KC_P3, KC_PENT, KC_TRNS, 
-	NUMPAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_PENT, KC_NO
-	),
+//	[_NUMPAD] = LAYOUT(
+//	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSLS, KC_PAST, KC_BSPC, KC_NO, 
+//	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_NO, 
+//	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO,
+//	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_NO, KC_NO, KC_P1, KC_P2, KC_P3, KC_PENT, KC_TRNS, 
+//	NUMPAD, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_PENT, KC_NO
+//	),
 
 	[_FUN] = LAYOUT(
 	KC_NO, KC_F1, KC_F2, KC_F3, KC_F4, KC_F5, KC_F6, KC_F7, KC_F8, KC_F9, KC_F10, KC_F11, 
@@ -155,12 +155,12 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	switch (keycode) {
-		case NUMPAD:
-			if (record->event.pressed) {
-				layer_invert(_NUMPAD);
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+//		case NUMPAD:
+//			if (record->event.pressed) {
+//				layer_invert(_NUMPAD);
+//				register_code(KC_NLCK);
+//				unregister_code(KC_NLCK);
+//		}
 		return false;
 		break;
 		case LOWER:
@@ -239,12 +239,12 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
 				SEND_STRING("\"\"" SS_TAP(X_LEFT));
       }
       break;
-		case NM_NUM:
-			if (pressed){
-				layer_invert(_NUMPAD);
-				register_code(KC_NLCK);
-				unregister_code(KC_NLCK);
-		}
+//		case NM_NUM:
+//			if (pressed){
+//				layer_invert(_NUMPAD);
+//				register_code(KC_NLCK);
+//				unregister_code(KC_NLCK);
+//		}
   }
 }
 
