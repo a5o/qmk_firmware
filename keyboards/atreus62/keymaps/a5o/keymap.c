@@ -256,27 +256,11 @@ void process_combo_event(uint16_t combo_index, bool pressed) {
   }
 }
 
-//LEADER_EXTERNS();
-
-//void matrix_scan_user(void) {
-//  LEADER_DICTIONARY() {
-//    leading = false;
-//    leader_end();
-
-//    SEQ_TWO_KEYS(KC_T, KC_R) {
-//			tap_code16(MEH(KC_T));
-//   }
-//    SEQ_TWO_KEYS(KC_C, KC_L) {
-//			tap_code16(MEH(KC_L));
-//    }
-//    SEQ_TWO_KEYS(KC_B, KC_R) {
-//			tap_code16(MEH(KC_B));
-//    }
-//    SEQ_TWO_KEYS(KC_C, KC_H) {
-//			tap_code16(MEH(KC_C));
-//    }
-//    SEQ_TWO_KEYS(KC_V, KC_I) {
-//			tap_code16(MEH(KC_V));
-//    }
-//  }
-//}
+uint16_t get_tapping_term(uint16_t keycode, keyrecord_t *record) {
+    switch (keycode) {
+        case LT(3,KC_SPC):
+            return 300;
+        default:
+            return TAPPING_TERM;
+    }
+}
