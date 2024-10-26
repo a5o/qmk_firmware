@@ -13,9 +13,9 @@
     "command": true,
     "console": true,
     "extrakey": true,
-    "mousekey": true,
-    "nkro": false,
-    "unicode": true
+    "mousekey": false,
+    "nkro": true,
+    "unicode": false
   },
   "qmk": {
     "locking": {
@@ -27,7 +27,7 @@
     "cols": ["F4", "F5", "F6", "F7", "B1", "B3", "B2", "B6", "B5", "B4", "E6", "D7", "C6"],
     "rows": ["D2", "D3", "D1", "D0", "D4"]
   },
-  "diode_direction": "ROW2COL",
+  "diode_direction": "COL2ROW",
   "processor": "atmega32u4",
   "bootloader": "caterina",
   "layouts": {
