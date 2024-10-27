@@ -23,26 +23,15 @@ enum layer_names {
 		_ADJUST
 };
 
-enum unicode_names {
-		EACU,
-		EGRV,
-		AGRV,
-		UGRV,
-		IGRV,
-		OGRV,
-		LTEQ,
-		GTEQ,
-		NOTEQ,
-		PLMIN,
-		ALM,
-		MICRO,
-		COPY,
-		REG,
-		TM,
-		DEGREE,
-		POUND,
-		EUR
+enum custom_keycodes {
+  EGRAVE=SAFE_RANGE,
+  EACU,
+  AGRAVE,
+  UGRAVE,
+  IGRAVE,
+  OGRAVE,
 };
+
 
 enum combo_events {
 	JK_ESC
@@ -100,8 +89,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
     [_FN2] = LAYOUT_65_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
+        _______, _______, _______, EGRAVE, _______, _______, _______, UGRAVE, IGRAVE, OGRAVE, _______, _______, _______, _______, _______,
+        _______, AGRAVE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
         _______,          _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
     ),
@@ -129,3 +118,40 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 */
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case EGRAVE:
+      if (record->event.pressed) {
+      SEND_STRING("`e");
+      }
+      break;
+    case EACU:
+      if (record->event.pressed) {
+      SEND_STRING("'e");
+      }
+      break;
+    case AGRAVE:
+      if (record->event.pressed) {
+      SEND_STRING("`a");
+      }
+      break;
+    case UGRAVE:
+      if (record->event.pressed) {
+      SEND_STRING("`u");
+      }
+      break;
+    case IGRAVE:
+      if (record->event.pressed) {
+      SEND_STRING("`i");
+      }
+      break;
+    case OGRAVE:
+      if (record->event.pressed) {
+      SEND_STRING("`o");
+      }
+      break;
+  }
+  return true;
+}
+
