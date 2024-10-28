@@ -15,7 +15,8 @@
     "extrakey": true,
     "mousekey": false,
     "nkro": true,
-    "unicode": false
+    "unicode": false,
+		"combo": true
   },
   "qmk": {
     "locking": {
