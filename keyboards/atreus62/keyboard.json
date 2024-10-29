@@ -18,6 +18,10 @@
     "unicode": false,
 		"combo": true
   },
+   "tapping": {
+       "term": 250,
+			 "permissive_hold": true
+   },
   "qmk": {
     "locking": {
       "enabled": true,
