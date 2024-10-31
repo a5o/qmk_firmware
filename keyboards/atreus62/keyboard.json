@@ -19,7 +19,7 @@
 		"combo": true
   },
    "tapping": {
-       "term": 250,
+       "term": 200,
 			 "permissive_hold": true
    },
   "qmk": {
