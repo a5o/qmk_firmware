@@ -16,7 +16,8 @@
     "mousekey": false,
     "nkro": true,
     "unicode": false,
-		"combo": true
+		"combo": true,
+		"dynamic_macro": true
   },
    "tapping": {
        "term": 200,
