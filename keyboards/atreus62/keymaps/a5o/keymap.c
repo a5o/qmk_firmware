@@ -21,6 +21,7 @@ enum custom_keycodes {
 	TMUXK,
 	TMUXJ,
 	TMUXH,
+	TMUXZ,
 	EGRAVE,
 	EACU,
 	AGRAVE,
@@ -47,7 +48,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
 	KC_TRNS, KC_TRNS, KC_TRNS, EGRAVE, KC_TRNS, KC_TRNS, KC_TRNS, UGRAVE, IGRAVE, OGRAVE, KC_TRNS, KC_TRNS,
 	KC_TRNS, AGRAVE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TMUXH, TMUXJ, TMUXK, TMUXL, KC_TRNS, KC_TRNS,
-	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS,
+	KC_TRNS, TMUXZ, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
@@ -153,6 +154,12 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
       SEND_STRING(SS_LCTL("b"));
 			SEND_STRING("l");
+			}
+			break; 
+		case TMUXZ:
+			if (record->event.pressed) {
+      SEND_STRING(SS_LCTL("b"));
+			SEND_STRING("z");
 			}
 			break; 
 		case EGRAVE:
