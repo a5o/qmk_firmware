@@ -17,7 +17,8 @@
     "nkro": true,
     "unicode": false,
 		"combo": true,
-		"dynamic_macro": true
+		"dynamic_macro": true,
+    "dynamic_tapping_term": true
   },
    "tapping": {
        "term": 200,
