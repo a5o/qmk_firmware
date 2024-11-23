@@ -21,7 +21,7 @@
     "dynamic_tapping_term": true
   },
    "tapping": {
-       "term": 200,
+       "term": 185,
 			 "permissive_hold": true
    },
   "qmk": {
