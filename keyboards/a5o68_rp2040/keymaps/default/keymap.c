@@ -23,15 +23,52 @@ enum layer_names {
 		_ADJUST
 };
 
-enum custom_keycodes {
-  EGRAVE=SAFE_RANGE,
-  EACU,
-  AGRAVE,
-  UGRAVE,
-  IGRAVE,
-  OGRAVE,
+enum unicode_names {
+		EACU,
+		EGRV,
+		AGRV,
+		UGRV,
+		IGRV,
+		OGRV,
+		LTEQ,
+		GTEQ,
+		NOTEQ,
+		PLMIN,
+		ALM,
+		MICRO,
+		COPY,
+		REG,
+		TM,
+		DEGREE,
+		POUND,
+		EUR
 };
 
+const uint32_t PROGMEM unicode_map[] = {
+	[EACU] = 0x00E9,
+	[EGRV] = 0x00E8,
+	[AGRV] = 0x00E0,
+	[UGRV] = 0x00F9,
+	[IGRV] = 0x00EC,
+	[OGRV] = 0x00F2,
+
+	// math
+	[LTEQ] = 0x2264, // less than or equal
+	[GTEQ] = 0x2265, // greater than or equal
+	[NOTEQ] = 0x2260, // not equal
+	[PLMIN] = 0x00B1, // plus minus
+	[ALM] = 0x2248, // almost
+
+	// misc symbols
+	[MICRO] = 0x00B5,
+	[COPY] = 0x00A9,
+	[REG] = 0x00AE,
+	[TM] = 0x2122,
+	[DEGREE] = 0x00B0,
+	[POUND] = 0x00A3,
+	[EUR] = 0x20AC
+
+};
 
 enum combo_events {
 	JK_ESC
@@ -81,15 +118,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
      */
     [_FN] = LAYOUT_65_ansi(
         _______, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_DEL,  KC_INS,
-        _______, _______, _______, EGRAVE, _______, _______, _______, UGRAVE, IGRAVE, OGRAVE, _______, _______, _______, _______, KC_HOME,
-        _______, AGRAVE, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
-        MO(_FN2),          KC_BRID, KC_BRIU, _______, _______, _______,  _______, _______, _______, _______, _______, _______, KC_VOLU, _______,
-        _______, _______, _______,                            MO(_ADJUST),                   _______, _______, _______, KC_MUTE, KC_VOLD, KC_MNXT
+        _______, _______, _______, UP(1,7),   UC(REG),  UC(TM),  _______, UP(3,9), UP(4,10), UP(4,11), _______, _______, _______, _______, KC_HOME,
+        _______, UP(2,8), _______, UC(DEGREE), _______, _______, _______, _______, _______, _______, _______, _______,          _______, KC_END,
+        MO(_FN2),          KC_BRID, KC_BRIU, _______, _______, _______,  _______, _______, UC(LTEQ), UC(GTEQ), _______, _______, KC_VOLU, _______,
+        _______, _______, _______,                            MO(_ADJUST),                   _______, _______, _______, KC_MUTE, KC_VOLD, _______ 
     ),
 
     [_FN2] = LAYOUT_65_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, EACU, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, UP(0,6), _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
         _______,          _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
@@ -98,8 +135,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_ADJUST] = LAYOUT_65_ansi(
         _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,
         _______, _______, _______, _______,   _______,  _______,  AG_SWAP, AG_NORM, _______, _______, _______, _______, _______, _______, _______,
-        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______, _______,
-        _______,          _______, _______, _______, _______, _______,  _______, _______, _______, _______, _______, _______, _______, _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, UC_LINX, _______, _______,          _______, _______,
+        _______,          _______, _______, UC_WINC, _______, _______,  _______, UC_MAC, _______, _______, _______, _______, _______, _______,
         _______, _______, _______,                            _______,                   _______, _______, _______, _______, _______, _______
     ),
 };
@@ -118,40 +155,3 @@ bool led_update_user(led_t led_state) {
     return true;
 }
 */
-
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-    case EGRAVE:
-      if (record->event.pressed) {
-      SEND_STRING("`e");
-      }
-      break;
-    case EACU:
-      if (record->event.pressed) {
-      SEND_STRING("'e");
-      }
-      break;
-    case AGRAVE:
-      if (record->event.pressed) {
-      SEND_STRING("`a");
-      }
-      break;
-    case UGRAVE:
-      if (record->event.pressed) {
-      SEND_STRING("`u");
-      }
-      break;
-    case IGRAVE:
-      if (record->event.pressed) {
-      SEND_STRING("`i");
-      }
-      break;
-    case OGRAVE:
-      if (record->event.pressed) {
-      SEND_STRING("`o");
-      }
-      break;
-  }
-  return true;
-}
-
