@@ -14,6 +14,65 @@
 #define _MACRO 4
 #define _ADJUST 5
 
+enum unicode_names {
+		EACU,
+		EGRV,
+		AGRV,
+		UGRV,
+		IGRV,
+		OGRV,
+		EACUC,
+		EGRVC,
+		AGRVC,
+		UGRVC,
+		IGRVC,
+		OGRVC,
+		LTEQ,
+		GTEQ,
+		NOTEQ,
+		PLMIN,
+		ALM,
+		MICRO,
+		COPY,
+		REG,
+		TM,
+		DEGREE,
+		POUND,
+		EUR
+};
+
+const uint32_t PROGMEM unicode_map[] = {
+	[EACU] = 0x00E9,
+	[EGRV] = 0x00E8,
+	[AGRV] = 0x00E0,
+	[UGRV] = 0x00F9,
+	[IGRV] = 0x00EC,
+	[OGRV] = 0x00F2,
+
+	[EACUC] = 0x00C9,
+	[EGRVC] = 0x00C8,
+	[AGRVC] = 0x00C0,
+	[UGRVC] = 0x00D9,
+	[IGRVC] = 0x00CC,
+	[OGRVC] = 0x00D2,
+
+	// math
+	[LTEQ] = 0x2264, // less than or equal
+	[GTEQ] = 0x2265, // greater than or equal
+	[NOTEQ] = 0x2260, // not equal
+	[PLMIN] = 0x00B1, // plus minus
+	[ALM] = 0x2248, // almost
+
+	// misc symbols
+	[MICRO] = 0x00B5,
+	[COPY] = 0x00A9,
+	[REG] = 0x00AE,
+	[TM] = 0x2122,
+	[DEGREE] = 0x00B0,
+	[POUND] = 0x00A3,
+	[EUR] = 0x20AC
+
+};
 enum custom_keycodes {
   LOWER=SAFE_RANGE,
   RAISE,
@@ -22,16 +81,9 @@ enum custom_keycodes {
 	TMUXJ,
 	TMUXH,
 	TMUXZ,
-	EGRAVE,
-	EACU,
-	AGRAVE,
-	UGRAVE,
-	IGRAVE,
-	OGRAVE,
 };
 
-const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END};
-combo_t key_combos[] = {
+const uint16_t PROGMEM jk_combo[] = {KC_J, KC_K, COMBO_END}; combo_t key_combos[] = {
     COMBO(jk_combo, KC_ESC),
 };
 
@@ -46,15 +98,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 	[_LOWER] = LAYOUT(
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,
-	KC_TRNS, KC_TRNS, KC_TRNS, EGRAVE, KC_TRNS, KC_TRNS, KC_TRNS, UGRAVE, IGRAVE, OGRAVE, KC_TRNS, KC_TRNS,
-	KC_TRNS, AGRAVE, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TMUXH, TMUXJ, TMUXK, TMUXL, KC_TRNS, KC_TRNS,
-	KC_CAPS, TMUXZ, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS,
+	KC_TRNS, KC_TRNS, KC_TRNS, UP(1,7), KC_TRNS, KC_TRNS, KC_TRNS, UP(3,9), UP(4,10), UP(5,11), KC_TRNS, KC_TRNS,
+	KC_TRNS, UP(2,8), KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, TMUXH, TMUXJ, TMUXK, TMUXL, KC_TRNS, KC_TRNS,
+	KC_TRNS, TMUXZ, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_BSLS,
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_DEL, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
 	),
 
 	[_RAISE] = LAYOUT(
 	KC_TILD, KC_EXLM, KC_AT, KC_HASH, KC_DLR, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_LPRN, KC_RPRN, KC_PLUS, 
-	KC_TRNS, KC_NO, KC_NO, EACU, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LBRC, KC_RBRC, KC_UNDS, 
+	KC_TRNS, KC_NO, KC_NO, UP(0,6), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LBRC, KC_RBRC, KC_UNDS, 
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LCBR, KC_RCBR, KC_DQUO, 
 	KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_LT, KC_GT, KC_QUES, KC_PIPE, 
 	KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS
@@ -79,8 +131,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 	[_ADJUST] = LAYOUT(
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_NO, QK_BOOT, EE_CLR, DB_TOGG, KC_NO, DT_PRNT, AG_SWAP, AG_NORM, KC_NO, KC_NO, KC_NO, KC_NO, 
-	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, DT_UP, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
-	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, DT_DOWN, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, 
+	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, DT_UP, KC_NO, KC_NO, KC_NO, UC_LINX, KC_NO, KC_NO, 
+	KC_NO, KC_NO, KC_NO, UC_WINC, KC_NO, DT_DOWN, KC_NO, UC_MAC, KC_NO, KC_NO, KC_NO, KC_NO, 
 	KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
 	)
   /*
@@ -160,36 +212,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 			if (record->event.pressed) {
       SEND_STRING(SS_LCTL("b"));
 			SEND_STRING("z");
-			}
-			break; 
-		case EGRAVE:
-			if (record->event.pressed) {
-			SEND_STRING("`e");
-			}
-			break; 
-		case EACU:
-			if (record->event.pressed) {
-			SEND_STRING("'e");
-			}
-			break; 
-		case AGRAVE:
-			if (record->event.pressed) {
-			SEND_STRING("`a");
-			}
-			break; 
-		case UGRAVE:
-			if (record->event.pressed) {
-			SEND_STRING("`u");
-			}
-			break; 
-		case IGRAVE:
-			if (record->event.pressed) {
-			SEND_STRING("`i");
-			}
-			break; 
-		case OGRAVE:
-			if (record->event.pressed) {
-			SEND_STRING("`o");
 			}
 			break; 
 	}
