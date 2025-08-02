@@ -14,7 +14,7 @@
     "extrakey": true,
     "mousekey": false,
     "nkro": true,
-    "unicode": false,
+    "unicode": true,
 		"combo": true,
 		"dynamic_macro": true,
     "dynamic_tapping_term": true
