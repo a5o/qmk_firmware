@@ -25,7 +25,7 @@
     },
     "matrix_pins": {
         "cols": ["GP7", "GP6", "GP16", "GP17", "GP18", "GP19", "GP20", "GP21", "GP22", "GP5", "GP4", "GP3", "GP2", "GP1", "GP0"],
-        "rows": ["GP10", "GP11", "GP10", "GP9", "GP8"]
+        "rows": ["GP12", "GP11", "GP10", "GP9", "GP8"]
     },
     "diode_direction": "COL2ROW",
     "processor": "RP2040",
